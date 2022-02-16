@@ -12,7 +12,7 @@ class TransaksiController extends Controller
 {
     public function index()
     {
-        $transactions = \App\Transaction::with('item')->get();
+        $transactions = \App\Transaction::with('item')->where('kategori', Null)->get();
         
         return view('transaksi.index', compact('transactions'));
     }
@@ -36,17 +36,47 @@ class TransaksiController extends Controller
             'tanggal_kembali' => $request->tanggal_kembali,
             'email' => $request->email,
             'phone' => $request->phone,
+            'kategori' => $request->kategori,
         ]);
 
-         if ($transactions->save()) {
-             $harga = Item::findOrFail($transactions->kode_id);
+        if ($transactions->save()) {
+            $harga = Item::findOrFail($transactions->kode_id);
 
-             $jumlah = $transactions->jumlah * $harga->idr;
+            $jumlah = $transactions->jumlah * $harga->idr;
 
-             $transactions->update ([
-                'idr' => $jumlah
-             ]);
+            $transactions->update ([
+               'idr' => $jumlah
+            ]);
         }
-        return redirect()->back();
+
+        if($transactions->save()) {
+            $get = Item::findOrFail($transactions->kode_id);
+
+            $hitung = $get->stock - $transactions->jumlah;
+
+            $get->update([
+               'stock' => $hitung
+            ]);
+       }
+       
+       if ($transactions->save()) {
+        date_default_timezone_set("Asia/Jakarta");
+        $datetime2 = strtotime($transactions->tanggal_kembali) ;
+        $datenow = strtotime(date('Y-m-d'));
+        $durasi = ($datenow - $datetime2) / 86400 ;
+        $durasi2 = ($durasi).'Hari';
+       
+        if ($datenow > $datetime2) {
+           $durasi2 = 'Terlambat';
+        }
+        if ($datenow == $datetime2) {
+            $durasi2 = 'Kembalikan';
+        }
+        $transactions->update([
+            'durasi' => $durasi2
+        ]);
+
+       }
+       return redirect()->back();
     }
 }

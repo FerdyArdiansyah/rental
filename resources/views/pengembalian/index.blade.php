@@ -20,8 +20,8 @@
                                         <th>Nama Penyewa</th>
                                         <th>Tanggal Pinjam</th>
                                         <th>Tanggal Kembali</th>
+                                        <th>Lama Penyewaan</th>
                                         
-                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,10 +33,22 @@
                                         <td>{{$retrun->transaction->nama_peminjam}}</td>
                                         <td>{{$retrun->transaction->tanggal_pinjam}}</td>
                                         <td>{{$retrun->transaction->tanggal_kembali}}</td>
-                                            
                                         <td>
-                                            <a href="http://" class="btn btn-danger btn-sm">Cetak</a>
+                                            <?php
+                                                $datetime2 = strtotime($retrun->transaction->tanggal_kembali) ;
+                                                $datenow = strtotime($retrun->transaction->tanggal_pinjam);
+                                                $durasi = ($datenow - $datetime2) / 86400 ;
+                                                $durasi2 = ($durasi);
+                                            ?>
+                                            @if ($datenow == $datetime2  ) 
+                                                    <span class="text-danger">Waktunya mengembalikan</span> 
+                                                @elseif($datenow > $datetime2)
+                                                    Sudah lewat {{$durasi}} Hari
+                                                @else
+                                                <?php $durasi1 = abs($durasi) ?> {{ $durasi1 }} Hari
+                                            @endif
                                         </td>
+                                        
                                     </tr>
                                     @endforeach
                                     

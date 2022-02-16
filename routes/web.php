@@ -46,5 +46,13 @@ route::group(['prefix' => 'pengembalian'], function(){
 });
 
 route::group(['prefix' => 'sms'], function(){
-    route::post('post/{transactions}','smsController@store')->name('sms.post');
+    route::get('create','SmsController@create')->name('sms.create');
+    route::post('sms/{sms}','SmsController@store')->name('sms.kirim');
+});
+
+route::group(['prefix' => 'cetak'], function(){
+    route::get('index','CetakController@index')->name('cetak.barang');
+    route::get('edit','CetakController@edit')->name('cetak.transaksi');
+    route::get('create','CetakController@create')->name('cetak.pengembalian');
+    route::get('dashboard','CetakController@dashboard')->name('cetak.dashboard');
 });

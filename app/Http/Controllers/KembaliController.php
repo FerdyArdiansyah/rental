@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Item;
 use App\Transaction;
 use App\Pengembalian;
+use Nexmo\Laravel\Facade\Nexmo;
 use Illuminate\Http\Request;
 
 class KembaliController extends Controller
@@ -29,6 +30,27 @@ class KembaliController extends Controller
             'tanggalpinjam_id' => $request->tanggalpinjam_id,
             'tanggalkembali_id' => $request->tanggalkembali_id,
         ]);
+            if($returns->save()) {
+
+                $transactions = Transaction::findOrFail($id);
+
+                $get = item::findOrFail($returns->kode_id);
+
+                $hitung = $get->stock + $transactions->jumlah;
+    
+                $get->update([
+                   'stock' => $hitung
+                ]);
+
+            if($returns->save()) {
+                $transactions = Transaction::findOrFail($returns->nofaktur_id);
+
+                $transactions->update([
+                    'kategori' => 'retrun'
+                ]);
+            }
+        }
+
         return redirect()->back();
     }
     

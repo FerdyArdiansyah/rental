@@ -10,7 +10,7 @@
                             Data Barang
                         </h5>
                         <div class="mt-3 mb-3">
-                            <a href="{{route('tambah-data.barang') }}" class="btn btn-info">
+                            <a href="{{route('tambah-data.barang') }}" class="btn btn-outline-info">
                                 Tambah Data
                             </a>
                         </div>
@@ -29,7 +29,7 @@
                                     @foreach ($items as $item)
                                         <tr>
                                             <td>{{$item->kode}}</td>
-                                            <td><a href="{{route('transaksi.create', $item->id)}}" class="btn btn-info btn-sm">{{$item->nama}}</a></td>
+                                            <td><a href="{{route('transaksi.create', $item->id)}}" class="btn btn-outline-info btn-sm">{{$item->nama}}</a></td>
                                             <td>{{$item->stock}}</td>
                                             <td>{{$item->idr}}</td>
                                             <td>

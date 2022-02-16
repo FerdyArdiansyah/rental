@@ -48,9 +48,18 @@
                                 <li class="nav-item">
                                     <a href="{{route('kembali.index')}}" class="nav-link">Pengembalian</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">Laporan</a>
-                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                      Laporan
+                                    </a>
+                                    
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a class="dropdown-item" href="{{route('cetak.barang')}}">Barang</a>
+                                      <a class="dropdown-item" href="{{route('cetak.transaksi')}}">Transaksi</a>
+                                      <a class="dropdown-item" href="{{route('cetak.pengembalian')}}">Pengembalian</a>
+                                      <a class="dropdown-item" href="{{route('cetak.dashboard')}}">Dashboard</a>
+                                    </div>
+                                  </li>
                             </ul>
                         </div>
                     </nav>

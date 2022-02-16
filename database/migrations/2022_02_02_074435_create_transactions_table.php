@@ -25,6 +25,8 @@ class CreateTransactionsTable extends Migration
             $table->string('idr');
             $table->string('email');
             $table->string('phone');
+            $table->string('kategori')->nullable();
+            $table->string('durasi')->nullable();
             $table->timestamps();
         });
     }

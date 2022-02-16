@@ -63,8 +63,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Telp </label>
-                                        <input type="text" class="form-control" value="6289611439048" disabled>
-                                        <input type="hidden" name="phone" class="form-control" value="6289611439048">
+                                        
+                                        <input type="text" name="phone" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">

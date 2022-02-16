@@ -48,12 +48,21 @@
                                     @endif
                                     </td>
                                             <td>
-                                                <a href="{{route('kembali.create', $transaksi->id)}}" class="btn btn-outline-info btn-sm mb-2">Buat Pengembalian</a>
-                                                <form action="{{route('sms.post', $transaksi->id)}}" method="post">
+                                                <form action="{{route('kembali.store', $transaksi->id)}}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="kode_id" class="form-control" value="{{$transaksi->item->id}}">
+                                                    <input type="hidden" name="nofaktur_id" class="form-control" value="{{$transaksi->id}}">
+                                                    <input type="hidden" name="namapeminjam_id" class="form-control" value="{{$transaksi->id}}">
+                                                    <input type="hidden" name="tanggalpinjam_id" id="" class="form-control" value="{{$transaksi->id}}">
+                                                    <input type="hidden" name="tanggalkembali_id" id="" class="form-control" value="{{$transaksi->id}}">
+        
+                                                    <button type="submit" class="btn btn-outline-primary btn-sm" style="width: 130px; height:-25px;">Buat pengembalian</button>
+                                                <form action="{{route('sms.kirim', $transaksi->id)}}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="phone" class="form-control" value="{{$transaksi->phone}}">
-                                                    <button type="submit" class="btn btn-outline-primary btn-sm mb-2" style="width: 130px; height:25px">Kirim notifikasi</button>
+                                                    <button type="submit" class="btn btn-outline-primary btn-sm mt-2">Kirim notifikasi</button>
                                                 </form>
+                                                
                                             </td>
                                             
                                         </tr>

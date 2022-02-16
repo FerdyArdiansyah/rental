@@ -8,20 +8,24 @@ use Illuminate\Http\Request;
 
 class SmsController extends Controller
 {
+    public function create()
+    {
+        return view('sms.create');
+    }
     public function store(Request $request, $id)
     {
-        $transaksi = Transaction::findOrFail($id);
+        $sms = Transaction::findOrFail($id);
 
         Nexmo::message()->send([
-            'to' =>   $transaksi->phone,
+            'to' =>   '62' . $request->phone,
             'from' => 'Rental PS',
             'text'  => 'Halo kami dari Rental-PS ingin memberikan Tagihan'
             
-           . 'Nama Peminjam:'.$transaksi->nama_peminjam
-           . 'Tanggal Pinjam:'. $transaksi->tanggal_pinjam
-           . 'Tanggal Kembali:'. $transaksi->tanggal_kembali
-           . 'Jumlah Barang:'. $transaksi->jumlah
-           . 'Harga:'. $transaksi->idr
+           . 'Nama Peminjam:'.$request->nama_peminjam
+           . 'Tanggal Pinjam:'. $request->tanggal_pinjam
+           . 'Tanggal Kembali:'. $request->tanggal_kembali
+           . 'Jumlah Barang:'. $request->jumlah
+           . 'Harga:'. $request->idr
            . 'Terima Kasih'
             ]);
 
